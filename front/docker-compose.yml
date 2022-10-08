@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  front:
+    container_name: front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    # ./を/frontにバインドマウント
+      - type: bind
+        source: ./
+        target: /front
+    working_dir: /front
+    command: npm start
+    # 標準入出力先のデバイス コンテナが正常終了するのを防ぐ コンテナを持続させる
+    tty: true
+    ports:
+    # コンテナの3000ポートをホストマシンの3000ポートに割り当てる
+    # ホスト側：コンテナ側
+      - 3000:3000
